@@ -4,10 +4,11 @@ using System.Text;
 
 public sealed class Timer : MonoBehaviour
 {
+    private const string TIMERLABEL = "Time: ";
+
     private EnemySpawner _enemySpawner;
     private TextMeshProUGUI _timer;
     private StringBuilder _stringBuilder;
-    private string _timerLabel;
     private float _lastTimeUpdate;
     private float _gameTime;
     private bool _gameStarted;
@@ -23,9 +24,8 @@ public sealed class Timer : MonoBehaviour
         _gameStarted = false;
         _gameTime = 5;
         _lastTimeUpdate = Time.time;
-        _timerLabel = "Time: ";
         _stringBuilder = new StringBuilder();
-        _stringBuilder.Append(_timerLabel);
+        _stringBuilder.Append(TIMERLABEL);
         _stringBuilder.Append(FormatTime(Mathf.RoundToInt(_enemySpawner.StartGameDelay)));
         _timer.text = _stringBuilder.ToString();
         _stringBuilder.Clear();
@@ -55,7 +55,7 @@ public sealed class Timer : MonoBehaviour
 
     private void UpdateTimer()
     {
-        _stringBuilder.Append(_timerLabel);
+        _stringBuilder.Append(TIMERLABEL);
         _stringBuilder.Append(FormatTime(Mathf.RoundToInt(_gameTime)));
         _timer.text = _stringBuilder.ToString();
         _stringBuilder.Clear();

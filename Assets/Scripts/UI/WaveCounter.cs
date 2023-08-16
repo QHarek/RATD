@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WaveCounter : MonoBehaviour, IEnemySpawnerObserver
 {
+    private const string WAVELABEL = "Wave: ";
+
     private TextMeshProUGUI _waveCounter;
     private StringBuilder _stringBuilder;
-    private string _waveLabel;
 
     private void Awake()
     {
@@ -15,7 +16,6 @@ public class WaveCounter : MonoBehaviour, IEnemySpawnerObserver
 
     private void Start()
     {
-        _waveLabel = "Wave: ";
         _stringBuilder = new StringBuilder();
         FindObjectOfType<EnemySpawnerSubject>().AddObserver(this);
     }
@@ -23,7 +23,7 @@ public class WaveCounter : MonoBehaviour, IEnemySpawnerObserver
     public void OnNotify(int waveNumber)
     {
         _stringBuilder.Clear();
-        _stringBuilder.Append(_waveLabel);
+        _stringBuilder.Append(WAVELABEL);
         _stringBuilder.Append(waveNumber);
         _waveCounter.text = _stringBuilder.ToString();
     }

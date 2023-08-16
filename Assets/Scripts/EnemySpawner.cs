@@ -16,13 +16,15 @@ public sealed class EnemySpawner : EnemySpawnerSubject
     private int _waveNumber;
     private bool _gameStarted;
 
+    public const int MAXWAVENUMBER = 100;
+
     public float StartGameDelay => _startGameDelay;
     public int WaveNumber => _waveNumber;
 
     private void Start()
     {
         _gameStarted = false;
-        _waveNumber = 8;
+        _waveNumber = 0;
         _timer = _startGameDelay;
     }
 
@@ -36,7 +38,7 @@ public sealed class EnemySpawner : EnemySpawnerSubject
         if (Time.time > _startGameDelay && !_gameStarted)
             StartGame();
 
-        if (_timer > _waveNumber * _delayBetweenWawes && _gameStarted)
+        if (_timer > _waveNumber * _delayBetweenWawes && _gameStarted && _waveNumber <= MAXWAVENUMBER)
             StartNextWave();
     }
 
