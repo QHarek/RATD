@@ -15,11 +15,11 @@ public abstract class TowerShooterSubject : MonoBehaviour
         _observers.Remove(observer);
     }
 
-    protected void NotifyObservers(TowerShooterAction towerShooterAction)
+    protected void NotifyObservers(TowerShooterAction towerShooterAction, Transform target)
     {
         foreach (ITowerShooterObserver observer in _observers)
         {
-            observer.OnNotify(towerShooterAction);
+            observer.OnNotify(towerShooterAction, target);
         }
     }
 }

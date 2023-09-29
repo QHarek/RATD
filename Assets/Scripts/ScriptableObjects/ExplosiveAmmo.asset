@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b845babda4396e947a08312b16482667, type: 3}
   m_Name: ExplosiveAmmo
   m_EditorClassIdentifier: 
+  _name: Explosive Ammo
+  _tooltip: 
+  _iconSprite: {fileID: 21300000, guid: 2844c88fab6859c4a9d8c9d62a817f76, type: 3}
   _triggerEffect: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
   _activationChance: 40
   _activeTime: 0
   _cooldownTime: 2
   _radius: 3
   _damageMultiplier: 50
-  _name: Explosive Ammo
-  _tooltip: 

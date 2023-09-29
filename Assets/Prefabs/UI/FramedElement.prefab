@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 9105354090625986410}
   - component: {fileID: 9105354090625986404}
   m_Layer: 5
-  m_Name: Ability
+  m_Name: FramedElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

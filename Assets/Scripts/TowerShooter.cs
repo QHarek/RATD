@@ -14,8 +14,6 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
 
     private float _lastShotTime;
 
-    public GameObject Target => _target;
-
     private void Awake()
     {
         _towerStats = GetComponent<TowerStats>();
@@ -96,7 +94,7 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
             if (strickenEnemy != null)
             {
                 strickenEnemy.GetComponent<EnemyHP>().TakeDamage(_towerStats.CurrentDamage);
-                NotifyObservers(TowerShooterAction.EnemyHitted);
+                NotifyObservers(TowerShooterAction.EnemyHitted, _target.transform);
                 return;
             }
         }        

@@ -4,33 +4,52 @@ using UnityEngine;
 
 public class TowerAbilitiesHodler : MonoBehaviour, ITowerShooterObserver
 {
-    [SerializeField] private List<ActiveAbilityDataSO> _abilitiesList;
-
-    private TowerShooter _towerShooter;
+    [SerializeField] private List<AbilityDataSO> _abilitiesList;
+    
+    private List<ActiveAbilityDataSO> _activeAbilitiesList;
+    private List<PassiveAbilityDataSO> _passiveAbilitiesList;
+    private List<FamiliarAbilityDataSO> _familiarAbilitiesList;
     private TowerStats _towerStats;
     private Vector3 _abilityEffectSpawnPosition;
 
+    public List<AbilityDataSO> AbilitiesList => _abilitiesList;
+
     private void Awake()
     {
-        _towerShooter = GetComponent<TowerShooter>();
+        _activeAbilitiesList = new List<ActiveAbilityDataSO>();
+        _passiveAbilitiesList = new List<PassiveAbilityDataSO>();
+        _familiarAbilitiesList = new List<FamiliarAbilityDataSO>();
         _towerStats = GetComponent<TowerStats>();
     }
 
-    public void OnNotify(TowerShooterAction towerShooterAction)
+    private void Start()
     {
-        if(towerShooterAction == TowerShooterAction.EnemyHitted)
-            foreach (ActiveAbilityDataSO ability in _abilitiesList)
+        SplitAbilities();
+    }
+
+    private void SplitAbilities()
+    {
+        foreach (AbilityDataSO ability in _abilitiesList)
+        {
+            switch (ability.AbilityType)
             {
-                if(ability.AbilityType == AbilityType.Active)
-                {
-                    if (ability.ActivationChance >= Random.Range(1,100))
+                case AbilityType.Active:
                     {
-                        _abilityEffectSpawnPosition = _towerShooter.Target.transform.position;
-                        Instantiate(ability.TriggerEffect, _abilityEffectSpawnPosition, Quaternion.identity);
-                        ActivateAbility(ability);
+                        _activeAbilitiesList.Add(ability as ActiveAbilityDataSO);
+                        break;
                     }
-                }
+                case AbilityType.Passive:
+                    {
+                        _passiveAbilitiesList.Add(ability as PassiveAbilityDataSO);
+                        break;
+                    }
+                case AbilityType.Familiar:
+                    {
+                        _familiarAbilitiesList.Add(ability as FamiliarAbilityDataSO);
+                        break;
+                    }
             }
+        }
     }
 
     private void ActivateAbility(ActiveAbilityDataSO ability)
@@ -50,5 +69,43 @@ public class TowerAbilitiesHodler : MonoBehaviour, ITowerShooterObserver
                 methodInfo.Invoke(abilityLogic, methodParams);
             }
         }
+    }
+
+    public void AddAbility(AbilityDataSO ability)
+    {
+        _abilitiesList.Add(ability);
+
+        switch (ability.AbilityType)
+        {
+            case AbilityType.Active:
+                {
+                    _activeAbilitiesList.Add(ability as ActiveAbilityDataSO);
+                    break;
+                }
+            case AbilityType.Passive:
+                {
+                    _passiveAbilitiesList.Add(ability as PassiveAbilityDataSO);
+                    break;
+                }
+            case AbilityType.Familiar:
+                {
+                    _familiarAbilitiesList.Add(ability as FamiliarAbilityDataSO);
+                    break;
+                }
+        }
+    }
+
+    public void OnNotify(TowerShooterAction towerShooterAction, Transform target)
+    {
+        if (towerShooterAction == TowerShooterAction.EnemyHitted && _activeAbilitiesList.Count > 0)
+            foreach (ActiveAbilityDataSO activeAbility in _activeAbilitiesList)
+            {
+                if (activeAbility.ActivationChance >= Random.Range(1, 100))
+                {
+                    _abilityEffectSpawnPosition = target.position;
+                    Instantiate(activeAbility.TriggerEffect, _abilityEffectSpawnPosition, Quaternion.identity);
+                    ActivateAbility(activeAbility);
+                }
+            }
     }
 }
