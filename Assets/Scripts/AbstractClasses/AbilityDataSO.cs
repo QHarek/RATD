@@ -18,11 +18,7 @@ public abstract class AbilityDataSO : ScriptableObject
 
     public AbilityType AbilityType => _abilityType;
 
-    internal void Updrade()
-    {
-        if (_level < _maxLevel)
-            _level++;
-    }
+    internal abstract void Updrade();
 
     internal void RandomizeLevel()
     {

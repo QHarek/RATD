@@ -4,5 +4,10 @@ using UnityEngine;
 public class PassiveAbilityDataSO : AbilityDataSO
 {
 
+
+    internal override void Updrade()
+    {
+        throw new System.NotImplementedException();
+    }
 }
 

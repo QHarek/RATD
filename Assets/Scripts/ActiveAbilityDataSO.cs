@@ -21,4 +21,9 @@ public class ActiveAbilityDataSO : AbilityDataSO
     {
         _abilityType = AbilityType.Active;
     }
+
+    internal override void Updrade()
+    {
+        throw new System.NotImplementedException();
+    }
 }
