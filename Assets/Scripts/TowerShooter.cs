@@ -11,6 +11,7 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
     private ParticleSystem _weapon;
     private GameObject _target;
     private TowerStats _towerStats;
+    private Vector3 _targetPosition;
 
     private float _lastShotTime;
 
@@ -22,7 +23,7 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
 
     private void Start()
     {
-        AddObserver(GetComponent<TowerAbilitiesHodler>());
+        AddObserver(GetComponent<TowerAbilitiesHolder>());
     }
 
     private void FixedUpdate()
@@ -50,6 +51,7 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
         {
             _target = _enemies[0];
             _weapon.trigger.AddCollider(_target.GetComponent<Collider>());
+            _targetPosition = _target.transform.position;
         }
         else
         {
@@ -94,7 +96,7 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
             if (strickenEnemy != null)
             {
                 strickenEnemy.GetComponent<EnemyHP>().TakeDamage(_towerStats.CurrentDamage);
-                NotifyObservers(TowerShooterAction.EnemyHitted, _target.transform);
+                NotifyObservers(TowerShooterAction.EnemyHitted, _targetPosition);
                 return;
             }
         }        

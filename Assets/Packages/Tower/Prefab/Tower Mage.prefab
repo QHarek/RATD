@@ -599,13 +599,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab628970ce358a4cbe77e8e4ee86434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootingRange: 0
+  _shootingRange: 6
   _currentDamage: 0
-  _baseDamage: 0
-  _attackDelay: 0
+  _baseDamage: 50
+  _attackDelay: 1
   _level: 0
   _currentExperience: 0
-  _projectilesCount: 0
+  _projectilesCount: 1
+  _lifes: 40
 --- !u!114 &4884706434130807395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4391,12 +4392,7 @@ ParticleSystem:
   SubModule:
     serializedVersion: 2
     enabled: 0
-    subEmitters:
-    - serializedVersion: 3
-      emitter: {fileID: 0}
-      type: 0
-      properties: 0
-      emitProbability: 1
+    subEmitters: []
   LightsModule:
     enabled: 0
     ratio: 0

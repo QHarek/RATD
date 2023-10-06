@@ -20,6 +20,7 @@ public sealed class EnemySpawner : EnemySpawnerSubject
 
     public float StartGameDelay => _startGameDelay;
     public int WaveNumber => _waveNumber;
+    public int EnemyCount => _enemyCount;
 
     private void Start()
     {

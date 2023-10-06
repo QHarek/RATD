@@ -6,17 +6,18 @@ using UnityEngine.UI;
 public class TowerAbilityPicker : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image _icon;
+    [SerializeField] private Sprite _defaultIconSprite;
     [SerializeField] private AbilityPoolSO _allAbilities;
     
     private static List<AbilityDataSO> _currentlyAvailableAbilities;
 
-    private TowerAbilitiesHodler _towerAbilitiesHodler;
+    private TowerAbilitiesHolder _towerAbilitiesHodler;
     private AbilityDataSO _ability;
 
     private void Awake()
     {
         _currentlyAvailableAbilities = new List<AbilityDataSO>();
-        _towerAbilitiesHodler = FindObjectOfType<TowerAbilitiesHodler>();
+        _towerAbilitiesHodler = FindObjectOfType<TowerAbilitiesHolder>();
     }
 
     private void Start()
@@ -42,8 +43,21 @@ public class TowerAbilityPicker : MonoBehaviour, IPointerClickHandler
             _towerAbilitiesHodler.AddAbility(_ability);
             _icon.sprite = _ability.IconSprite;
             _currentlyAvailableAbilities.Remove(_ability);
-
+            _ability.RandomizeLevel();
         }
+    }
+
+    public void RemoveAbility()
+    {
+        _currentlyAvailableAbilities.Add(_ability);
+        _towerAbilitiesHodler.RemoveAbility(_ability);
+        _icon.sprite = _defaultIconSprite;
+        _ability = null;
+    }
+
+    public void UpgradeAbility()
+    {
+        _ability.Updrade();
     }
 
     public void OnPointerClick(PointerEventData eventData)
