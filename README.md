@@ -7,7 +7,7 @@ Walkthrough of original RATD (it's not my channel, thanks to WTiiWarcraft for th
 [![Watch the video](https://img.youtube.com/vi/_8KcvyUhAOc/default.jpg)](https://youtu.be/watch?v=_8KcvyUhAOc)
 
 ## Current state:
-- Basic mechanics are tested (except win/loss)
+- Basic mechanics are tested
 - Ability system partially tested
 - UI is in development
 
