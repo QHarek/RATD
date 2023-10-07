@@ -5,8 +5,9 @@ public abstract class AbilityDataSO : ScriptableObject
     [SerializeField] private Sprite _iconSprite;
     [SerializeField] private string _name;
     [SerializeField] private string _tooltip;
-    [SerializeField] private int _level;
-    [SerializeField] private int _maxLevel;
+
+    [SerializeField] protected internal int _maxLevel;
+    [SerializeField] protected internal int _level;
 
 
     protected internal AbilityType _abilityType;

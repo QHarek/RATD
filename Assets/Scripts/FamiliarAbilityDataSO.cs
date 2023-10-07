@@ -7,7 +7,10 @@ public class FamiliarAbilityDataSO : AbilityDataSO
 
     internal override void Updrade()
     {
-        throw new System.NotImplementedException();
+        if (_level < _maxLevel)
+        {
+            _level++;
+        }
     }
 }
 

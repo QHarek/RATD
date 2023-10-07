@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TowerAbilityPicker : MonoBehaviour, IPointerClickHandler
+public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Image _icon;
     [SerializeField] private Sprite _defaultIconSprite;
@@ -11,6 +11,8 @@ public class TowerAbilityPicker : MonoBehaviour, IPointerClickHandler
     
     private static List<AbilityDataSO> _currentlyAvailableAbilities;
 
+    private GameObject _abilityNameLabel;
+    private TMPro.TextMeshProUGUI _abilityNameLabelText;
     private TowerAbilitiesHolder _towerAbilitiesHodler;
     private AbilityDataSO _ability;
 
@@ -22,6 +24,9 @@ public class TowerAbilityPicker : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+        _abilityNameLabel = GameObject.Find("AbilityNameLabel");
+        _abilityNameLabelText = _abilityNameLabel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+
         FillCurrentlyAvailableAbilitiesPool();
     }
 
@@ -44,6 +49,8 @@ public class TowerAbilityPicker : MonoBehaviour, IPointerClickHandler
             _icon.sprite = _ability.IconSprite;
             _currentlyAvailableAbilities.Remove(_ability);
             _ability.RandomizeLevel();
+
+            _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
         }
     }
 
@@ -53,16 +60,34 @@ public class TowerAbilityPicker : MonoBehaviour, IPointerClickHandler
         _towerAbilitiesHodler.RemoveAbility(_ability);
         _icon.sprite = _defaultIconSprite;
         _ability = null;
+        _abilityNameLabelText.text = "";
     }
 
     public void UpgradeAbility()
     {
-        _ability.Updrade();
+        if (_ability)
+        {
+            _ability.Updrade();
+            _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left && !_ability)
             RollAbility();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (_ability)
+        {
+            _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _abilityNameLabelText.text = "";
     }
 }
