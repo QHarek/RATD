@@ -16,7 +16,7 @@ public class WinLoss : MonoBehaviour
             Lose();
         }
 
-        if(_spawnPoint.GetComponent<EnemySpawner>().WaveNumber == 101)
+        if(_spawnPoint.GetComponent<EnemySpawner>().WaveNumber == 101 && _spawnPoint.GetComponent<EnemySpawner>().EnemyCount == 0)
         {
             Win();
         }

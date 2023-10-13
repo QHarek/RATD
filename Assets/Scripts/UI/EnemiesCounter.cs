@@ -21,7 +21,7 @@ public class EnemiesCounter : MonoBehaviour, IEnemyObserver
     {
         switch (enemyAction)
         {
-            case EnemyAction.Die:
+            case EnemyAction.Died:
                 {
                     _enemiesCount--;
                     _textComponent.text = ENEMYCOUNTERLABEL + _enemiesCount.ToString();

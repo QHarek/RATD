@@ -8,6 +8,7 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     [SerializeField] private Image _icon;
     [SerializeField] private Sprite _defaultIconSprite;
     [SerializeField] private AbilityPoolSO _allAbilities;
+    [SerializeField] private EconomySettingsSO _economySettingsSO;
     
     private static List<AbilityDataSO> _currentlyAvailableAbilities;
 
@@ -15,15 +16,17 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     private TMPro.TextMeshProUGUI _abilityNameLabelText;
     private TowerAbilitiesHolder _towerAbilitiesHodler;
     private AbilityDataSO _ability;
+    private PlayerWallet _playerWallet;
 
     private void Awake()
     {
         _currentlyAvailableAbilities = new List<AbilityDataSO>();
-        _towerAbilitiesHodler = FindObjectOfType<TowerAbilitiesHolder>();
     }
 
     private void Start()
     {
+        _towerAbilitiesHodler = FindObjectOfType<TowerAbilitiesHolder>();
+        _playerWallet = FindObjectOfType<PlayerWallet>();
         _abilityNameLabel = GameObject.Find("AbilityNameLabel");
         _abilityNameLabelText = _abilityNameLabel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
 
@@ -41,7 +44,7 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     private void RollAbility()
     {
-        if (_currentlyAvailableAbilities.Count != 0)
+        if (_currentlyAvailableAbilities.Count != 0 && _playerWallet.Gold >= _economySettingsSO.RollAbilityCostGold)
         {
             int abilityIndex = Random.Range(0, _currentlyAvailableAbilities.Count - 1);
             _ability = _currentlyAvailableAbilities[abilityIndex];
@@ -50,26 +53,52 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             _currentlyAvailableAbilities.Remove(_ability);
             _ability.RandomizeLevel();
 
+            _playerWallet.Pay(_economySettingsSO.RollAbilityCostGold, 0);
+
             _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
         }
     }
 
     public void RemoveAbility()
     {
-        _currentlyAvailableAbilities.Add(_ability);
-        _towerAbilitiesHodler.RemoveAbility(_ability);
-        _icon.sprite = _defaultIconSprite;
-        _ability = null;
-        _abilityNameLabelText.text = "";
+        if (_ability)
+            if (_ability.Level < _ability.MaxLevel)
+                if (_playerWallet.Dices >= _economySettingsSO.RemoveAbilityCostDices)
+                {
+                    _playerWallet.Pay(0, _economySettingsSO.RemoveAbilityCostDices);
+
+                    _currentlyAvailableAbilities.Add(_ability);
+                    _towerAbilitiesHodler.RemoveAbility(_ability);
+                    _icon.sprite = _defaultIconSprite;
+                    _ability = null;
+                    _abilityNameLabelText.text = "";
+                }
     }
 
     public void UpgradeAbility()
     {
         if (_ability)
-        {
-            _ability.Updrade();
-            _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
-        }
+            if (_ability.Level < _ability.MaxLevel)
+                if (_ability.Level == _ability.MaxLevel - 1) //preTranscendent level check
+                {
+                    if (_playerWallet.Dices >= _economySettingsSO.TranscendentUpgradeCostDices)
+                    {
+                        _playerWallet.Pay(0, _economySettingsSO.TranscendentUpgradeCostDices);
+
+                        _ability.Updrade();
+                        _abilityNameLabelText.text = _ability.Name + " (Transcendent)";
+                    }
+                }
+                else
+                {
+                    if (_playerWallet.Gold >= _economySettingsSO.UpgradeAbilityCostGold[_ability.Level])
+                    {
+                        _playerWallet.Pay(_economySettingsSO.UpgradeAbilityCostGold[_ability.Level], 0);
+
+                        _ability.Updrade();
+                        _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
+                    }
+                }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -82,7 +111,10 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if (_ability)
         {
-            _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
+            if(_ability.Level == _ability.MaxLevel)
+                _abilityNameLabelText.text = _ability.Name + " (Transcendent)";
+            else
+                _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
         }
     }
 

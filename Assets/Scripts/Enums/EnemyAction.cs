@@ -1,6 +1,6 @@
 public enum EnemyAction
 {
-    Die,
+    Died,
     Spawned,
-
+    BossDied
 }

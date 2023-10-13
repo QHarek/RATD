@@ -550,6 +550,7 @@ MonoBehaviour:
   _icon: {fileID: 3886367245691156702}
   _defaultIconSprite: {fileID: 21300000, guid: 64afcf4a56824bd41850a375e036a882, type: 3}
   _allAbilities: {fileID: 11400000, guid: 4ccc55f351d05b341805043e2e629f78, type: 2}
+  _economySettingsSO: {fileID: 11400000, guid: c888d7b5a3ed05d44acf9525a6e70c49, type: 2}
 --- !u!114 &3886367245691156702 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7397176719858391209, guid: 05dade3987ec0cd47bf24871f9832d83, type: 3}

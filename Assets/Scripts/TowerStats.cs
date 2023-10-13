@@ -19,7 +19,7 @@ public class TowerStats : MonoBehaviour, IEnemyObserver
 
     public void OnNotify(EnemyAction enemyAction)
     {
-        if (enemyAction == EnemyAction.Die)
+        if (enemyAction == EnemyAction.Died)
         {
             _currentExperience++;
             if (_currentExperience % 5 == 0)

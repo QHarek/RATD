@@ -3,9 +3,12 @@ using UnityEngine;
 
 public sealed class EnemyBehavior : EnemySubject
 {
+    [SerializeField] private bool _isBoss;
+
     private bool _isDead = false; //For death animation
 
     public bool IsDead => _isDead;
+    public bool IsBoss => _isBoss;
 
     private void Start()
     {
@@ -22,7 +25,12 @@ public sealed class EnemyBehavior : EnemySubject
     {
         _isDead = true;
         gameObject.layer = LayerMask.NameToLayer("Default");
-        NotifyObservers(EnemyAction.Die);
+
+        if(!_isBoss)
+            NotifyObservers(EnemyAction.Died);
+        else
+            NotifyObservers(EnemyAction.BossDied);
+
         GetComponent<EnemyMovement>().enabled = false;
         GetComponent<Collider>().enabled = false;
         GetComponent<Animator>().SetBool("IsDead", _isDead);

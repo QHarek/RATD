@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb7c5d49cc800b040b685537e35b2df2, type: 3}
-  m_Name: Default BountySettings
+  m_Name: Default EconomySettings
   m_EditorClassIdentifier: 
   _enemyBounty: 10
   _bossBounty: 3000
@@ -18,3 +18,9 @@ MonoBehaviour:
   _waveGoldBountyMultiplier: 20
   _basicWaveDiceBounty: 1
   _wavesToDiceBountyIncreace: 10
+  _basicGold: 400000
+  _basicDices: 2500
+  _rollAbilityCostGold: 1500
+  _removeAbilityCostDices: 5
+  _transcendentUpgradeCostDices: 100
+  _upgradeAbilityCostGold: 64000000c8000000f40100004c04000034080000100e00004416000034210000

@@ -119,7 +119,7 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
 
     public void OnNotify(EnemyAction enemyAction)
     {
-        if (enemyAction == EnemyAction.Die)
+        if (enemyAction == EnemyAction.Died)
         {
             ChangeTarget();
         }

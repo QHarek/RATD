@@ -15,8 +15,9 @@ MonoBehaviour:
   _iconSprite: {fileID: 21300000, guid: 2844c88fab6859c4a9d8c9d62a817f76, type: 3}
   _name: Explosive Ammo
   _tooltip: 
-  _level: 1
-  _maxLevel: 10
+  _level: 9
+  _maxLevel: 9
+  _maxRandomLevel: 5
   _triggerEffect: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
   _activationChance: 40
   _activeTime: 0
