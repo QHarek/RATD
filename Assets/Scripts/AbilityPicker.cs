@@ -85,7 +85,7 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     {
                         _playerWallet.Pay(0, _economySettingsSO.TranscendentUpgradeCostDices);
 
-                        _ability.Updrade();
+                        _ability.Updrade(_ability.Level + 1);
                         _abilityNameLabelText.text = _ability.Name + " (Transcendent)";
                     }
                 }
@@ -95,7 +95,7 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                     {
                         _playerWallet.Pay(_economySettingsSO.UpgradeAbilityCostGold[_ability.Level], 0);
 
-                        _ability.Updrade();
+                        _ability.Updrade(_ability.Level + 1);
                         _abilityNameLabelText.text = _ability.Name + " (Level " + _ability.Level + ")";
                     }
                 }

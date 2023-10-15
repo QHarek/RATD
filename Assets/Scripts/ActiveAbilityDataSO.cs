@@ -4,11 +4,20 @@ using UnityEngine;
 public class ActiveAbilityDataSO : AbilityDataSO
 {
     [SerializeField] private GameObject _triggerEffect;
-    [SerializeField] private float _activationChance;
-    [SerializeField] private float _activeTime;
-    [SerializeField] private float _cooldownTime;
-    [SerializeField] private float _radius;
-    [SerializeField] private float _damageMultiplier;
+    [SerializeField] private float _basicActivationChance;
+    [SerializeField] private float _basicActiveTime;
+    [SerializeField] private float _basicCooldownTime;
+    [SerializeField] private float _basicRadius;
+    [SerializeField] private float _basicDamageMultiplier;
+    [SerializeField] private float _activationChancePerUpgrade;
+    [SerializeField] private float _damageMultiplierPerUpgrade;
+    [SerializeField] private float _radiusPerUpgrade;
+
+    private float _activationChance;
+    private float _activeTime;
+    private float _cooldownTime;
+    private float _radius;
+    private float _damageMultiplier;
 
     public GameObject TriggerEffect => _triggerEffect;
     public float ActivationChance  => _activationChance;
@@ -20,13 +29,21 @@ public class ActiveAbilityDataSO : AbilityDataSO
     private void Awake()
     {
         _abilityType = AbilityType.Active;
+        _activationChance = _basicActivationChance;
+        _activeTime = _basicActiveTime;
+        _cooldownTime = _basicCooldownTime;
+        _radius = _basicRadius;
+        _damageMultiplier = _basicDamageMultiplier;
     }
 
-    internal override void Updrade()
+    internal override void Updrade(int level)
     {
         if (_level < _maxLevel)
         {
             _level++;
+            _activationChance = _basicActivationChance + level * _activationChancePerUpgrade;
+            _damageMultiplier = _basicDamageMultiplier + level * _damageMultiplierPerUpgrade;
+            _radius = _basicRadius + level * _radiusPerUpgrade;
         }
     }
 }

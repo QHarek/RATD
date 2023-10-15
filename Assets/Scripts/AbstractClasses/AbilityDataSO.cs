@@ -23,7 +23,7 @@ public abstract class AbilityDataSO : ScriptableObject
     public AbilityType AbilityType => _abilityType;
 
 
-    internal abstract void Updrade();
+    internal abstract void Updrade(int level);
 
     internal void RandomizeLevel()
     {

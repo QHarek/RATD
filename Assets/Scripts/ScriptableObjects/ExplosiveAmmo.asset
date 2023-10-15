@@ -19,8 +19,11 @@ MonoBehaviour:
   _maxLevel: 9
   _maxRandomLevel: 5
   _triggerEffect: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
-  _activationChance: 40
-  _activeTime: 0
-  _cooldownTime: 2
-  _radius: 3
-  _damageMultiplier: 50
+  _basicActivationChance: 40
+  _basicActiveTime: 0
+  _basicCooldownTime: 1
+  _basicRadius: 3
+  _basicDamageMultiplier: 50
+  _activationChancePerUpgrade: 2
+  _damageMultiplierPerUpgrade: 50
+  _radiusPerUpgrade: 0.3

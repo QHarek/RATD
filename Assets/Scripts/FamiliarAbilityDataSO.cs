@@ -5,7 +5,7 @@ public class FamiliarAbilityDataSO : AbilityDataSO
 {
 
 
-    internal override void Updrade()
+    internal override void Updrade(int level)
     {
         if (_level < _maxLevel)
         {
