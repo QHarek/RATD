@@ -11,10 +11,9 @@ Walkthrough of original RATD (it's not my channel, thanks to WTiiWarcraft for th
 - Ability system partially tested
 - UI is in development
 
-  [![Watch the video](https://img.youtube.com/vi/Tn5y6qYINWQ/default.jpg)](https://youtu.be/Tn5y6qYINWQ)
+  [![Watch the video](https://img.youtube.com/vi/WpskwpLXnx4/default.jpg)](https://youtu.be/WpskwpLXnx4)
 ### Plans
 - Items system
-- Economics
 - Main menu
 - Save/load system
 - Sounds
