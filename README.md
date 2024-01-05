@@ -1,6 +1,6 @@
 # Random Ability Tower Defence (RATD)
 ## This is fork of Warcraft 3 custom map with same name.
-Currently here is only one ability, that doesn't belong to original RATD, it's temporary ability to test ability trigger system.
+Currently here is only one ability, that doesn't belong to original RATD, it's temporary ability to test ability system.
 
 Walkthrough of original RATD (it's not my channel, thanks to WTiiWarcraft for this video):
 
