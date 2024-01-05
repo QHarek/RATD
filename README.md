@@ -13,7 +13,7 @@ Walkthrough of original RATD (it's not my channel, thanks to WTiiWarcraft for th
 - Economics is ready for action
 - Ability system is ready for adding abilities from original
 
-NEW DEMO WILL BE SOON
+NEW DEMO WILL BE SOON, BELOW IS OLD VERSION
 
   [![Watch the video](https://img.youtube.com/vi/WpskwpLXnx4/default.jpg)](https://youtu.be/WpskwpLXnx4)
 ### Plans
