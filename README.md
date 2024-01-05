@@ -7,13 +7,15 @@ Walkthrough of original RATD (it's not my channel, thanks to WTiiWarcraft for th
 [![Watch the video](https://img.youtube.com/vi/_8KcvyUhAOc/default.jpg)](https://youtu.be/watch?v=_8KcvyUhAOc)
 
 ## Current state:
-- Basic mechanics are tested
-- Ability system partially tested
-- UI is in development
+- Basic mechanics are ready for action
+- Items and store are ready for action
+- UI is ready for action
+- Economics is ready for action
+- Ability system is ready for adding abilities from original
 
+NEW DEMO WILL BE SOON
   [![Watch the video](https://img.youtube.com/vi/WpskwpLXnx4/default.jpg)](https://youtu.be/WpskwpLXnx4)
 ### Plans
-- Items system
 - Main menu
 - Save/load system
 - Sounds
