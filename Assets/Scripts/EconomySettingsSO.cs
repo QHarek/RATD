@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New BountySettings", menuName = "New Bounty Settings", order = 51)]
+[CreateAssetMenu(fileName = "New EconomySettings", menuName = "New Economy Settings", order = 51)]
 public class EconomySettingsSO : ScriptableObject
 {
     [SerializeField] private int _enemyBounty;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _iconSprite: {fileID: 21300000, guid: 2844c88fab6859c4a9d8c9d62a817f76, type: 3}
   _name: Explosive Ammo
-  _tooltip: 
+  _description: 
   _level: 9
   _maxLevel: 9
   _maxRandomLevel: 5

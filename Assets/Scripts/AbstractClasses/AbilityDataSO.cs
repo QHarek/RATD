@@ -4,7 +4,7 @@ public abstract class AbilityDataSO : ScriptableObject
 {
     [SerializeField] private Sprite _iconSprite;
     [SerializeField] private string _name;
-    [SerializeField] private string _tooltip;
+    [SerializeField] private string _description;
 
     [SerializeField] protected int _level;
     [SerializeField] protected int _maxLevel;
@@ -15,7 +15,7 @@ public abstract class AbilityDataSO : ScriptableObject
 
     public Sprite IconSprite => _iconSprite;
     public string Name => _name;
-    public string Tooltip => _tooltip;
+    public string Description => _description;
     public int Level => _level;
     public int MaxLevel => _maxLevel;
     public int MaxRandomLevel => _maxRandomLevel;

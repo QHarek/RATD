@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerWallet : MonoBehaviour, IEnemyObserver, IEnemySpawnerObserver
+public class PlayerWallet : MonoBehaviour, IEnemyObserver, IEnemySpawnerObserver, IShopObserver
 {
     [SerializeField] private TMPro.TextMeshProUGUI _goldText;
     [SerializeField] private TMPro.TextMeshProUGUI _dicesText;
@@ -18,7 +18,11 @@ public class PlayerWallet : MonoBehaviour, IEnemyObserver, IEnemySpawnerObserver
         FindObjectOfType<EnemySpawnerSubject>().AddObserver(this);
         _gold = _economySettingsSO.BasicGold;
         _dices = _economySettingsSO.BasicDices;
+        UpdateWalletUI();
+    }
 
+    private void UpdateWalletUI()
+    {
         _goldText.text = _gold.ToString();
         _dicesText.text = _dices.ToString();
     }
@@ -27,18 +31,14 @@ public class PlayerWallet : MonoBehaviour, IEnemyObserver, IEnemySpawnerObserver
     {
         _gold -= gold;
         _dices -= dices;
-
-        _goldText.text = _gold.ToString();
-        _dicesText.text = _dices.ToString();
+        UpdateWalletUI();
     }
 
     public void Receive(int gold, int dices)
     {
         _gold += gold;
         _dices += dices;
-
-        _goldText.text = _gold.ToString();
-        _dicesText.text = _dices.ToString();
+        UpdateWalletUI();
     }
 
     void IEnemyObserver.OnNotify(EnemyAction enemyAction)
@@ -46,13 +46,13 @@ public class PlayerWallet : MonoBehaviour, IEnemyObserver, IEnemySpawnerObserver
         if (enemyAction == EnemyAction.Died)
         {
             _gold += _economySettingsSO.EnemyBounty;
-            _goldText.text = _gold.ToString();
+            UpdateWalletUI();
         }
 
         if (enemyAction == EnemyAction.BossDied)
         {
             _gold += _economySettingsSO.BossBounty;
-            _goldText.text = _gold.ToString();
+            UpdateWalletUI();
         }
     }
 
@@ -62,8 +62,21 @@ public class PlayerWallet : MonoBehaviour, IEnemyObserver, IEnemySpawnerObserver
         {
             _gold += _economySettingsSO.BasicWaveGoldBounty + _economySettingsSO.WaveGoldBountyMultiplier * waveNumber;
             _dices += _economySettingsSO.BasicWaveDiceBounty + waveNumber / _economySettingsSO.WavesToDiceBountyIncreace;
-            _goldText.text = _gold.ToString();
-            _dicesText.text = _dices.ToString();
+            UpdateWalletUI();
+        }
+    }
+
+    void IShopObserver.OnNotify(ShopAction shopAction, ItemDataSO item)
+    {
+        if (shopAction == ShopAction.BuyItem)
+        {
+            _gold -= item.Price;
+            UpdateWalletUI();
+        }
+        else if (shopAction == ShopAction.SellItem)
+        {
+            _gold += item.Price / 2;
+            UpdateWalletUI();
         }
     }
 }

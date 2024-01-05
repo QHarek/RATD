@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class TowerStats : MonoBehaviour, IEnemyObserver
 {
+    [SerializeField] private TowerInventory _towerInventory;
     [SerializeField] private float _shootingRange;
+    [SerializeField] private float _currentFlatDamage;
     [SerializeField] private float _currentDamage;
     [SerializeField] private float _baseDamage;
     [SerializeField] private float _attackDelay;
+    [SerializeField] private float _baseAttackDelay;
     [SerializeField] private float _level;
     [SerializeField] private float _currentExperience;
     [SerializeField] private int _projectilesCount;
@@ -17,6 +20,18 @@ public class TowerStats : MonoBehaviour, IEnemyObserver
     public int ProjectilesCount => _projectilesCount;
     public int Lifes => _lifes;
 
+    private void Start()
+    {
+        _currentFlatDamage = _baseDamage;
+        _currentDamage = _baseDamage;
+    }
+
+    public void UpdateDamageAndAttackSpeed()
+    {
+        _currentDamage = _currentFlatDamage * (1 + (float) _towerInventory.OverallDamageBonus / 100);
+        _attackDelay = _baseAttackDelay / (1 + (float) _towerInventory.OverallAttackSpeedBonus / 100);
+    }
+
     public void OnNotify(EnemyAction enemyAction)
     {
         if (enemyAction == EnemyAction.Died)
@@ -25,13 +40,9 @@ public class TowerStats : MonoBehaviour, IEnemyObserver
             if (_currentExperience % 5 == 0)
             {
                 _level++;
-                _currentDamage += _level * 2;
+                _currentFlatDamage += _level * 2;
+                UpdateDamageAndAttackSpeed();
             } 
         }
-    }
-
-    private void Start()
-    {
-        _currentDamage = _baseDamage;
     }
 }

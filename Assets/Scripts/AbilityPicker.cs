@@ -9,10 +9,11 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     [SerializeField] private Sprite _defaultIconSprite;
     [SerializeField] private AbilityPoolSO _allAbilities;
     [SerializeField] private EconomySettingsSO _economySettingsSO;
-    
+    [SerializeField] private GameObject[] _hideForTranscendent;
+    [SerializeField] private GameObject _descriptionWindow;
+
     private static List<AbilityDataSO> _currentlyAvailableAbilities;
 
-    private GameObject _abilityNameLabel;
     private TMPro.TextMeshProUGUI _abilityNameLabelText;
     private TowerAbilitiesHolder _towerAbilitiesHodler;
     private AbilityDataSO _ability;
@@ -27,8 +28,7 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         _towerAbilitiesHodler = FindObjectOfType<TowerAbilitiesHolder>();
         _playerWallet = FindObjectOfType<PlayerWallet>();
-        _abilityNameLabel = GameObject.Find("AbilityNameLabel");
-        _abilityNameLabelText = _abilityNameLabel.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        _abilityNameLabelText = GameObject.Find("AbilityNameLabel").GetComponentInChildren<TMPro.TextMeshProUGUI>();
 
         FillCurrentlyAvailableAbilitiesPool();
     }
@@ -59,6 +59,32 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         }
     }
 
+    private void ShowDescription()
+    {
+        GameObject newDescription = Instantiate(_descriptionWindow, GameObject.Find("DescriptionCanvas").transform);
+        newDescription.GetComponent<DescriptionWindowBehavior>().NameLabel.text = _ability.Name;
+
+        if (_ability.Level == _ability.MaxLevel && _ability.Name != "Tower of Greed")
+        {
+            newDescription.GetComponent<DescriptionWindowBehavior>().LevelLabel.text = "Transcendent";
+        }
+        else
+        {
+            newDescription.GetComponent<DescriptionWindowBehavior>().LevelLabel.text = "Level: " + _ability.Level.ToString();
+        }
+
+        newDescription.GetComponent<DescriptionWindowBehavior>().HideElementsForAbilities();
+        newDescription.GetComponent<DescriptionWindowBehavior>().DescriptionLabel.text = _ability.Description;
+    }
+
+    private void HideElementsForTranscendent()
+    {
+        foreach (var element in _hideForTranscendent)
+        {
+            element.SetActive(false);
+        }
+    }
+
     public void RemoveAbility()
     {
         if (_ability)
@@ -79,7 +105,7 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if (_ability)
             if (_ability.Level < _ability.MaxLevel)
-                if (_ability.Level == _ability.MaxLevel - 1) //preTranscendent level check
+                if (_ability.Level == _ability.MaxLevel - 1 && !_ability.Name.Contains("Tower of Greed")) //preTranscendent level check
                 {
                     if (_playerWallet.Dices >= _economySettingsSO.TranscendentUpgradeCostDices)
                     {
@@ -87,6 +113,7 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
                         _ability.Updrade(_ability.Level + 1);
                         _abilityNameLabelText.text = _ability.Name + " (Transcendent)";
+                        HideElementsForTranscendent();
                     }
                 }
                 else
@@ -105,6 +132,8 @@ public class AbilityPicker : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if (eventData.button == PointerEventData.InputButton.Left && !_ability)
             RollAbility();
+        if (eventData.button == PointerEventData.InputButton.Right && _ability)
+            ShowDescription();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
