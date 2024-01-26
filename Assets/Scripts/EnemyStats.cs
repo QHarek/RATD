@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public sealed class EnemyHP : EnemyStatsSubject
+public sealed class EnemyStats : EnemyStatsSubject
 {
     [SerializeField] private TextAsset _enemyHPByWaveJSON;
     [SerializeField] private TextAsset _bossHPByWaveJSON;
@@ -22,10 +22,16 @@ public sealed class EnemyHP : EnemyStatsSubject
         _enemyBehavior = GetComponent<EnemyBehavior>();
     }
 
+    private void Start()
+    {
+        AddObserver(FindObjectOfType<StatsFiller>());
+    }
+
     internal void TakeDamage(float damage)
     {
-        _currentHP -= damage;
-        NotifyObservers(EnemyStatsAction.UpdateHP);
+        float recievedDamage = Mathf.Clamp(damage, 0, _currentHP);
+        _currentHP -= recievedDamage;
+        NotifyObservers(EnemyStatsAction.UpdateHP, -recievedDamage);
 
         if (_currentHP <= 0)
             _enemyBehavior.StartDie();
@@ -34,7 +40,7 @@ public sealed class EnemyHP : EnemyStatsSubject
     internal void TakeHeal(float heal)
     {
         _currentHP = Mathf.Min(_currentHP + heal, _maxHP);
-        NotifyObservers(EnemyStatsAction.UpdateHP);
+        NotifyObservers(EnemyStatsAction.UpdateHP, heal);
     }
 
     internal void ModifyHPByWaveNumber(int waveNumber)

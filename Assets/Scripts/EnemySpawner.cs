@@ -61,9 +61,9 @@ public sealed class EnemySpawner : EnemySpawnerSubject
                 Quaternion.Euler(0, 90, 0), GameObject.Find("EnemyPool").transform);
 
             if (_waveNumber % 10 == 0 && enemySpawnCounter == waveEnemyPool.Count - 1)
-                enemy.GetComponent<EnemyHP>().ModifyBossHPByWaveNumber(_waveNumber);
+                enemy.GetComponent<EnemyStats>().ModifyBossHPByWaveNumber(_waveNumber);
             else
-                enemy.GetComponent<EnemyHP>().ModifyHPByWaveNumber(_waveNumber);
+                enemy.GetComponent<EnemyStats>().ModifyHPByWaveNumber(_waveNumber);
 
             _lastEnemySpawnedTime = Time.time;
             enemySpawnCounter++;

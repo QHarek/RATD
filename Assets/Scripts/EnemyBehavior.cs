@@ -16,6 +16,7 @@ public sealed class EnemyBehavior : EnemySubject
         AddObserver(FindObjectOfType<TowerStats>());
         AddObserver(FindObjectOfType<EnemiesCounter>());
         AddObserver(FindObjectOfType<PlayerWallet>());
+        AddObserver(FindObjectOfType<StatsFiller>());
 
         NotifyObservers(EnemyAction.Spawned);
         GetComponent<Animator>().SetBool("IsDead", _isDead);

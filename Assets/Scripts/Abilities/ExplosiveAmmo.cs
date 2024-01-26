@@ -7,7 +7,7 @@ public class ExplosiveAmmo : IActiveAbility
         foreach (var enemyCollider in Physics.OverlapSphere(
             abilityEffectSpawnPosition, ability.Radius, 1 << LayerMask.NameToLayer("Enemies")))
         {
-            enemyCollider.gameObject.GetComponent<EnemyHP>().TakeDamage(ability.DamageMultiplier * towerDamage);
+            enemyCollider.gameObject.GetComponent<EnemyStats>().TakeDamage(ability.DamageMultiplier * towerDamage);
         }
     }
 }

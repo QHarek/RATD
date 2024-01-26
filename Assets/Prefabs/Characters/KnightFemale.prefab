@@ -1308,6 +1308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa62dda4e0bf6c84a97b928af06bdb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isBoss: 0
 --- !u!114 &1985002431904615497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1317,7 +1318,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2973925864773097767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3415e1f404ced8c4185212bec7b0b4d3, type: 3}
+  m_Script: {fileID: 11500000, guid: f5792c1b257764d4f9f74237f85e120a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyHPByWaveJSON: {fileID: 4900000, guid: bb7822d87bfc0114aa372714b8b532cb, type: 3}

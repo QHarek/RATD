@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -93,7 +92,7 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
             var strickenEnemy = strickenEnemiesData.GetCollider(i, 0).gameObject;
             if (strickenEnemy != null)
             {
-                strickenEnemy.GetComponent<EnemyHP>().TakeDamage(_towerStats.CurrentDamage);
+                strickenEnemy.GetComponent<EnemyStats>().TakeDamage(_towerStats.CurrentDamage);
                 NotifyObservers(TowerShooterAction.EnemyHitted, strickenEnemy.transform.position);
                 return;
             }

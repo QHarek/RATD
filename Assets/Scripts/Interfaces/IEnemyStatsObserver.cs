@@ -1,4 +1,4 @@
 public interface IEnemyStatsObserver
 {
-    public void OnNotify(EnemyStatsAction enemyAction);
+    public void OnNotify(EnemyStatsAction enemyStatsAction, float value);
 }
