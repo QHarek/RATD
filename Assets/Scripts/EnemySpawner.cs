@@ -6,47 +6,28 @@ public sealed class EnemySpawner : EnemySpawnerSubject
 {
     [SerializeField] private GameObject[] _enemies;
     [SerializeField] private GameObject[] _bosses;
-    [SerializeField] private float _startGameDelay;
+    [SerializeField] private Timer _timer;
     [SerializeField] private float _delayBetweenWawes;
     [SerializeField] private float _enemySpawnDelay;
     [SerializeField] private int _enemyCount;
 
-    private float _timer;
     private float _lastEnemySpawnedTime;
     private int _waveNumber;
-    private bool _gameStarted;
 
     public const int MAXWAVENUMBER = 100;
 
-    public float StartGameDelay => _startGameDelay;
     public int WaveNumber => _waveNumber;
     public int EnemyCount => _enemyCount;
 
     private void Start()
     {
-        _gameStarted = false;
         _waveNumber = 0;
-        _timer = _startGameDelay;
     }
 
     private void FixedUpdate()
     {
-        if (!_gameStarted)
-            _timer -= Time.deltaTime;
-        else
-            _timer += Time.deltaTime;
-
-        if (Time.time > _startGameDelay && !_gameStarted)
-            StartGame();
-
-        if (_timer > _waveNumber * _delayBetweenWawes && _gameStarted && _waveNumber <= MAXWAVENUMBER)
+        if (_timer.GameStarted && _timer.TimerValue > _waveNumber * _delayBetweenWawes && _waveNumber <= MAXWAVENUMBER)
             StartNextWave();
-    }
-
-    private void StartGame()
-    {
-        StartNextWave();
-        _gameStarted = true;
     }
 
     private IEnumerator SpawnEnemies()
@@ -65,9 +46,9 @@ public sealed class EnemySpawner : EnemySpawnerSubject
             else
                 enemy.GetComponent<EnemyStats>().ModifyHPByWaveNumber(_waveNumber);
 
-            _lastEnemySpawnedTime = Time.time;
+            _lastEnemySpawnedTime = Timer.CustomTime;
             enemySpawnCounter++;
-            yield return new WaitUntil(() => _lastEnemySpawnedTime + _enemySpawnDelay < Time.time);
+            yield return new WaitUntil(() => _lastEnemySpawnedTime + _enemySpawnDelay < Timer.CustomTime);
         }
     }       
 

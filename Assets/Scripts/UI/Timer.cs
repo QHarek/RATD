@@ -5,49 +5,61 @@ using System.Text;
 public sealed class Timer : MonoBehaviour
 {
     private const string TIMERLABEL = "Time: ";
+    private const float STARTGAMEDELAY = 5;
 
-    private EnemySpawner _enemySpawner;
+    private static float _customTime;
+
     private TextMeshProUGUI _timer;
     private StringBuilder _stringBuilder;
     private float _lastTimeUpdate;
-    private float _gameTime;
+    private float _timerValue;
     private bool _gameStarted;
+
+    public static float CustomTime => _customTime;
+
+    public float TimerValue => _timerValue;
+    public bool GameStarted => _gameStarted;
 
     private void Awake()
     {
-        _enemySpawner = FindObjectOfType<EnemySpawner>();
+        _customTime = 0;
         _timer = GetComponent<TextMeshProUGUI>();
+    }
+
+    private void Update()
+    {
+        _customTime += Time.deltaTime;
     }
 
     private void Start()
     {
         _gameStarted = false;
-        _gameTime = 5;
-        _lastTimeUpdate = Time.time;
+        _timerValue = STARTGAMEDELAY;
+        _lastTimeUpdate = _customTime;
         _stringBuilder = new StringBuilder();
         _stringBuilder.Append(TIMERLABEL);
-        _stringBuilder.Append(FormatTime(Mathf.RoundToInt(_enemySpawner.StartGameDelay)));
+        _stringBuilder.Append(FormatTime(Mathf.RoundToInt(_timerValue)));
         _timer.text = _stringBuilder.ToString();
         _stringBuilder.Clear();
     }
 
     private void FixedUpdate()
     {
-        if (Time.time > _enemySpawner.StartGameDelay)
+        if (_customTime > STARTGAMEDELAY)
         {
             if(!_gameStarted)
             {
-                _gameTime = Time.time - _enemySpawner.StartGameDelay;
+                _timerValue = _customTime - STARTGAMEDELAY;
                 _gameStarted = true;
             }
-            _gameTime += Time.fixedDeltaTime;
-            if(Time.time > _lastTimeUpdate + 1)
+            _timerValue += Time.fixedDeltaTime;
+            if(_customTime - _lastTimeUpdate >= 1)
                 UpdateTimer();
         }
         else
         {
-            _gameTime -= Time.fixedDeltaTime;
-            if (Time.time > _lastTimeUpdate + 1) 
+            _timerValue -= Time.fixedDeltaTime;
+            if (_customTime - _lastTimeUpdate >= 1) 
                 UpdateTimer();
         }
 
@@ -56,10 +68,10 @@ public sealed class Timer : MonoBehaviour
     private void UpdateTimer()
     {
         _stringBuilder.Append(TIMERLABEL);
-        _stringBuilder.Append(FormatTime(Mathf.RoundToInt(_gameTime)));
+        _stringBuilder.Append(FormatTime(Mathf.RoundToInt(_timerValue)));
         _timer.text = _stringBuilder.ToString();
         _stringBuilder.Clear();
-        _lastTimeUpdate = (int)Time.time;
+        _lastTimeUpdate = (int) _customTime;
     }
 
     private string FormatTime(int timeInSeconds)

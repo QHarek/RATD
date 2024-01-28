@@ -28,10 +28,10 @@ public sealed class TowerShooter : TowerShooterSubject, IEnemyObserver
     {
         if (_target && _target.GetComponent<EnemyMovement>().OnPath && 
             Vector3.Distance(transform.position, _target.transform.position) <= _towerStats.ShootingRange && 
-            Time.time > _lastShotTime + _towerStats.AttackDelay)
+            Timer.CustomTime > _lastShotTime + _towerStats.AttackDelay)
         {
             Shoot();
-            _lastShotTime = Time.time;
+            _lastShotTime = Timer.CustomTime;
         }
     }
 

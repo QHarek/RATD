@@ -8,11 +8,11 @@ public class csDestroyEffect : MonoBehaviour {
 
     private void Start()
     {
-        _spawnTime = Time.time;
+        _spawnTime = Timer.CustomTime;
     }
 
     private void Update () {
-        if (Time.time > _spawnTime + _destroyTime)
+        if (Timer.CustomTime > _spawnTime + _destroyTime)
             Destroy(gameObject);
     }
 }
