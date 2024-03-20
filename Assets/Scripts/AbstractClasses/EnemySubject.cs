@@ -15,11 +15,11 @@ public abstract class EnemySubject : MonoBehaviour
         _observers.Remove(observer);
     }
 
-    protected void NotifyObservers(EnemyAction enemyAction)
+    protected void NotifyObservers(EnemyAction enemyAction, GameObject enemy)
     {
         foreach (IEnemyObserver observer in _observers)
         {
-            observer.OnNotify(enemyAction);
+            observer.OnNotify(enemyAction, enemy);
         }
     }
 

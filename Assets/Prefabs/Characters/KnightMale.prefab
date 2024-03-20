@@ -4011,7 +4011,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f9b60ddcd734543ab20e643d7a7f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeForSingleCircle: 15
+  _alignmentPathCenter: {x: -8, y: 0.1, z: -2.5}
+  _moveSpeed: 5
+  _smoothAlignmentDistance: 8
+  _spiralPathRadius: 6
+  _alignmentPathRadius: 2.5
+  _spiralRadiusReductionPerSecond: 0.02
+  _spiralMinimumRadius: 5
 --- !u!114 &-1165961179856104803
 MonoBehaviour:
   m_ObjectHideFlags: 0

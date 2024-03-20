@@ -88,7 +88,7 @@ public class StatsFiller : MonoBehaviour, IEnemyStatsObserver, IEnemyObserver, I
         }
     }
 
-    void IEnemyObserver.OnNotify(EnemyAction enemyAction)
+    void IEnemyObserver.OnNotify(EnemyAction enemyAction, GameObject enemy)
     {
         if (enemyAction == EnemyAction.Died || enemyAction == EnemyAction.BossDied)
         {

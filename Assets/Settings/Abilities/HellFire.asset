@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b845babda4396e947a08312b16482667, type: 3}
+  m_Name: HellFire
+  m_EditorClassIdentifier: 
+  _iconSprite: {fileID: 21300000, guid: 3cf5d65cddba24646af77604a975ad1f, type: 3}
+  _name: Hellfire
+  _description: 
+  _level: 0
+  _maxLevel: 9
+  _maxRandomLevel: 5
+  _basicTriggerEffect: {fileID: 762022796327430918, guid: b87f9f6cba4eeb14f91e033ac901387d, type: 3}
+  _basicActivationChance: 100
+  _basicActiveTime: 3
+  _basicCooldownTime: 5
+  _basicRadius: 2.5
+  _basicDamageMultiplier: 4
+  _activationChancePerUpgrade: 0
+  _activeTimePerUpgrade: 0
+  _cooldownReducePerUpgrade: 0
+  _radiusPerUpgrade: 0
+  _damageMultiplierPerUpgrade: 2
+  _transcendentIconSprite: {fileID: 21300000, guid: 04d4c26af377dce418933e45e47986c3, type: 3}
+  _transcendentTriggerEffect: {fileID: 762022796327430918, guid: 540b112f0d1b2ae4182f293a30bb6a2c, type: 3}
+  _transcendentActivationChance: -1
+  _transcendentActiveTime: 0
+  _transcendentCooldownTime: 0
+  _transcendentRadius: 7.5
+  _transcendentDamageMultiplier: 20

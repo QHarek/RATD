@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Text;
 
-public sealed class Timer : MonoBehaviour
+public sealed class Timer : MonoBehaviour, IEnemySpawnerObserver
 {
     private const string TIMERLABEL = "Time: ";
     private const float STARTGAMEDELAY = 5;
@@ -52,7 +52,8 @@ public sealed class Timer : MonoBehaviour
                 _timerValue = _customTime - STARTGAMEDELAY;
                 _gameStarted = true;
             }
-            _timerValue += Time.fixedDeltaTime;
+
+            _timerValue -= Time.fixedDeltaTime;
             if(_customTime - _lastTimeUpdate >= 1)
                 UpdateTimer();
         }
@@ -107,5 +108,11 @@ public sealed class Timer : MonoBehaviour
             sb.Append(timeInSeconds % 60);
         }
         return sb.ToString();
+    }
+
+    public void OnNotify(int waveNumber)
+    {
+        _timerValue = FindObjectOfType<EnemySpawner>().DelayBetweenWaves;
+        UpdateTimer();
     }
 }

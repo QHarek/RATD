@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 4884706434130807395}
   - component: {fileID: 1434104690}
   - component: {fileID: 1434104689}
+  - component: {fileID: 1976647001}
   m_Layer: 0
   m_Name: Tower Mage
   m_TagString: Untagged
@@ -599,10 +600,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab628970ce358a4cbe77e8e4ee86434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerInventory: {fileID: 1976647001}
   _shootingRange: 6
+  _currentFlatDamage: 0
   _currentDamage: 0
   _baseDamage: 50
   _attackDelay: 1
+  _baseAttackDelay: 1
   _level: 0
   _currentExperience: 0
   _projectilesCount: 1
@@ -5395,3 +5399,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1976647001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c819d4940bdd813439f513c97c3972f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slotsLimit: 6
+  _inventoryContentUI: {fileID: 0}
+  _inventoryItemPrefab: {fileID: 1017366519153698725, guid: baa38df2b5e2f7848b05197ced8978aa, type: 3}
+  _towerStats: {fileID: 5315826131272712898}
+  _items: []

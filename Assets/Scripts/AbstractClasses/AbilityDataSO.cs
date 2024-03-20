@@ -5,7 +5,6 @@ public abstract class AbilityDataSO : ScriptableObject
     [SerializeField] private Sprite _iconSprite;
     [SerializeField] private string _name;
     [SerializeField] private string _description;
-
     [SerializeField] protected int _level;
     [SerializeField] protected int _maxLevel;
     [SerializeField] protected int _maxRandomLevel;
@@ -22,11 +21,7 @@ public abstract class AbilityDataSO : ScriptableObject
 
     public AbilityType AbilityType => _abilityType;
 
+    internal abstract void InitializeAbility();
 
     internal abstract void Updrade(int level);
-
-    internal void RandomizeLevel()
-    {
-        _level = Random.Range(0, _maxRandomLevel);
-    }
 }

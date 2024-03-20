@@ -17,7 +17,7 @@ public class EnemiesCounter : MonoBehaviour, IEnemyObserver
         _enemiesCount = 0;
     }
 
-    public void OnNotify(EnemyAction enemyAction)
+    public void OnNotify(EnemyAction enemyAction, GameObject enemy)
     {
         switch (enemyAction)
         {
